@@ -65,7 +65,7 @@ def p_yt_xt_R(xt):
 
 def build_filter(info):
     global filt
-    
+
     if filt is None:
         est = positionEstimate.positionEstimate(satinfo)
         if est is None:
@@ -113,7 +113,7 @@ while True:
 
     try:
         name = msg.name()
-        print name
+        print(name)
     except ublox.UBloxError as e:
         continue
 
@@ -128,5 +128,3 @@ while True:
         #    print(satinfo.satpos[i].distance(satinfo.receiver_position) + util.speedOfLight * , satinfo.prCorrected[i])
 
         do_filter(satinfo)
-
-

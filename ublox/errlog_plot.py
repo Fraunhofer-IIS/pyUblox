@@ -77,7 +77,7 @@ if (sat_el is None or sat_az is None or sat_res is None or t_first is None) \
         with open(opts.satlog) as f:
             for l in f:
                 a = l.split(',')
-                
+
                 t = float(a[0]) / 1000
 
                 if t_first == 0:
@@ -261,7 +261,7 @@ if opts.plot_clusters >= 0 or opts.plot_skymap >= 0:
 
 	sat = 100 * sat / (clump[1] - clump[0])
 
-	print sat
+	print(sat)
 
         # This hideous lump of bollocks scans through the position arrays and ensures
         # that any zero-entries at the beginning or end are set to the first/last non-
@@ -324,7 +324,7 @@ if opts.plot_clusters >= 0 or opts.plot_skymap >= 0:
             r = [abs(r) > sat_prthres for r in sat_res[i,:].toarray()[0] ]
             e = [math.cos(e * math.pi / 180.) for e in sat_el[i,:].toarray()[0]]
             a = [a * math.pi / 180. for a in sat_az[i,:].toarray()[0]]
-            
+
             e = map((lambda a,b:a*b), r, e)
             a = map((lambda a,b:a*b), r, a)
 
@@ -387,8 +387,3 @@ if opts.plot_skymap >= 0:
         ax.plot(b_azs[i], b_els[i])
 
 plt.show()
-
-    
-
-
-

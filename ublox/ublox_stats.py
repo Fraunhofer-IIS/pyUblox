@@ -31,7 +31,7 @@ def single_stats(pos):
     dmedpos = pos - med_pos
 
     std = numpy.std(dmeanpos, axis=0)
-    
+
     dist = numpy.array([numpy.sqrt(p[0]**2 + p[1]**2 + p[2]**2) for p in dmeanpos])
     max_dist_m = max(dist)
     av_dist_m = numpy.mean(dist)
@@ -67,9 +67,9 @@ def single_stats(pos):
 
         st+= "Bias          {}\n".format(dmeanref)
 
-    print st
+    print(st)
 
-   
+
 
 def pairwise_stats(p1, p2):
     '''Calculates statistics over two time-sequences of position vectors'''
@@ -113,7 +113,7 @@ def pairwise_stats(p1, p2):
         st+= "Av Imp      {}\n".format(av_imp)
         st+= "95% Imp     {}\n".format(imp95)
 
-    print st
+    print(st)
 
 
 devs = []
@@ -151,7 +151,3 @@ for n1, n2 in itertools.combinations(pos.keys(), 2):
     print(devs[n1][1] + '  <--->  ' + devs[n2][1])
     print('---')
     pairwise_stats(pos[n1], pos[n2])
-
-
-
-

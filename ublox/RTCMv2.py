@@ -72,7 +72,7 @@ class RTCMBits:
         i = self.calculate_parity(self.rtcword)
         # put parity into lower 6 bits of 32 bit word
         self.rtcword |= i
-        # invert bits, if needed 
+        # invert bits, if needed
         if self.parity2 != 0:
             self.rtcword ^= 0x3fffffc0
         # copy parity bits  */
@@ -126,7 +126,7 @@ class RTCMBits:
         tow = self.time_of_week
         toh = tow - 3600*(int(tow)//3600)
         return int(round(toh / 0.6))
-        
+
 
     def calcRTCMPosition(self, satinfo, msgsatid, msgprc, scalefactors):
         '''
@@ -135,7 +135,7 @@ class RTCMBits:
         position if we are calculating the RTCM data correctly
         '''
         msgsatcnt = len(msgsatid)
-        
+
         pranges = {}
         for i in range(msgsatcnt):
             svid = msgsatid[i]
@@ -156,8 +156,8 @@ class RTCMBits:
         if lastpos is None:
             lastpos = util.PosVector(0,0,0)
         if len(pranges) >= 4:
-            print pranges
-            print satinfo.prCorrected
+            print(pranges)
+            print(satinfo.prCorrected)
             satinfo.rtcm_position = positionEstimate.positionLeastSquares_ranges(satinfo, pranges, lastpos, 0)
 
 
@@ -241,7 +241,7 @@ class RTCMBits:
                 rates[svid] = (errors[svid] - self.last_errors[svid]) / deltat
             else:
                 rates[svid] = 0
-            
+
         msgsatid     = []
         msgprc       = []
         msgprrc      = []
@@ -292,7 +292,7 @@ class RTCMBits:
         # first part of header
         self.addbits(8, 0x66)  # header id
         self.addbits(6, 1)     # msg type 1
-        self.addbits(10, self.stationID) 
+        self.addbits(10, self.stationID)
 
         #  second part of header
         self.addbits(13, rtcmzcount) # z-count
