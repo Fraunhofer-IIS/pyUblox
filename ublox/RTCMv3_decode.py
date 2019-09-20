@@ -145,7 +145,7 @@ def decode_1004(pkt):
         temp_corrs[svid]['LLI1'] = lossoflock(svid, 0, lock1)
         temp_corrs[svid]['SNR1'] = snratio(cnr1 * 0.25)
         temp_corrs[svid]['CODE1'] = 'CODE_P1' if code1 else 'CODE_C1'
-        
+
         if pr21 != 0xE000:
             temp_corrs[svid]['P2'] = pr1 + pr21 * 0.02
 
@@ -156,7 +156,7 @@ def decode_1004(pkt):
         temp_corrs[svid]['LLI2'] = lossoflock(svid, 1, lock2)
         temp_corrs[svid]['SNR2'] = snratio(cnr2 * 0.25)
         temp_corrs[svid]['CODE2'] = L2codes[code2]
-    
+
     # Sort the list of sats by SNR, trim to 10 sats
     quals = sorted([ (s, temp_corrs[s]['SNR1']) for s in temp_corrs], key=lambda x: x[1])
     if len(quals) > max_sats:
@@ -164,7 +164,7 @@ def decode_1004(pkt):
         quals = quals[:max_sats]
     print(nsat, len(quals), quals)
 
-    # Copy the kept sats in to the correction set 
+    # Copy the kept sats in to the correction set
     corr_set = {}
     for sv, snr in quals:
         corr_set[sv] = temp_corrs[sv]
@@ -190,7 +190,7 @@ def decode_1006(pkt):
     pkt.read(2)
     ref_z = pkt.read(38).int * 0.0001
     anth = pkt.read(16).uint * 0.0001
- 
+
     ref_pos = [ref_x, ref_y, ref_z]
     print(ref_pos)
     print(util.PosVector(*ref_pos).ToLLH())
@@ -228,7 +228,7 @@ def decode_1033(pkt):
         rsn = rsn + chr(pkt.read(8).uint)
 
     #print(des, sno, rec, ver, rsn)
-    
+
 
 def decode_1019(pkt):
     global eph, week
@@ -311,7 +311,7 @@ def regen_v2_type1():
         # assume the time_of_week is the exact receiver time of week that the message arrived.
         # subtract the time of flight to get the satellite transmit time
         transmitTime = itow - tof
-    
+
         T = util.correctWeeklyTime(transmitTime - toc)
 
         satpos = satPosition.satPosition_raw(eph[svid], svid, transmitTime)
@@ -320,7 +320,7 @@ def regen_v2_type1():
         satPosition.correctPosition_raw(satpos, tof)
 
         geo = satpos.distance(util.PosVector(*ref_pos))
-    
+
         dTclck = eph[svid].af0 + eph[svid].af1 * T + eph[svid].af2 * T * T + Trel - eph[svid].Tgd
 
         # Incoming PR is already corrected for receiver clock bias
@@ -363,7 +363,7 @@ def regen_v2_type3():
 def parse_rtcmv3(pkt):
     pkt_type = pkt.read(12).uint
 
-    print pkt_type
+    print(pkt_type)
 
     if pkt_type == 1004:
         decode_1004(pkt)
@@ -421,7 +421,7 @@ def RTCM_converter_thread(server, port, username, password, mountpoint, rtcm_cal
         parity = sio.read(3)
 
         if len(pkt) != pkt_len:
-            print "Length error {} {}".format(len(pkt), pkt_len)
+            print("Length error {} {}".format(len(pkt), pkt_len))
             continue
 
         if True: #TODO check parity
@@ -447,6 +447,3 @@ def _printer(p):
 
 if __name__ == '__main__':
     RTCM_converter_thread('192.104.43.25', 2101, sys.argv[1], sys.argv[2], 'TID10', _printer)
-
-
-

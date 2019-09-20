@@ -35,6 +35,6 @@ for f in args:
             print("repack string failed")
             break
         if opts.show:
-            print s1
+            print(s1)
         count += 1
     print("tested %u messages OK" % count)

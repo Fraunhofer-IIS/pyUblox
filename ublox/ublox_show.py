@@ -37,6 +37,5 @@ while True:
     try:
         print(str(msg))
     except ublox.UBloxError as e:
-        print e.message
+        print(e.message)
     sys.stdout.flush()
-
