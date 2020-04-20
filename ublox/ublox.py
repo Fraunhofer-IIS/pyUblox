@@ -51,6 +51,7 @@ MSG_NAV_SBAS      = 0x32
 MSG_NAV_ORB 	  = 0x34
 MSG_NAV_SAT 	  = 0x35
 MSG_NAV_TIMEGAL   = 0x25
+MSG_NAV_EOE       = 0x61
 
 # RXM messages
 MSG_RXM_RAW    = 0x10
@@ -426,6 +427,9 @@ msg_types = {
     (CLASS_NAV, MSG_NAV_TIMEGAL): UBloxDescriptor('NAV_TIMEGAL',
                                                   '<IIihbBI',
                                                   ['iTOW', 'galTow', 'fGalTow', 'galWno', 'leaps', 'valid', 'tAcc', 'min', 'sec', 'valid']),
+    (CLASS_NAV, MSG_NAV_EOE)    : UBloxDescriptor('NAV_EOE',
+                                                  '<I',
+                                                  ['iTOW']),
     (CLASS_NAV, MSG_NAV_CLOCK)  : UBloxDescriptor('NAV_CLOCK',
                                                   '<IiiII',
                                                   ['iTOW', 'clkB', 'clkD', 'tAcc', 'fAcc']),
